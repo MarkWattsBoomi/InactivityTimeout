@@ -1,0 +1,39 @@
+.iato-redaction {
+    position:absolute;
+    left:0;
+    top:0;
+    right:0;
+    bottom:0;
+    display:flex;
+    flex-direction:column;
+    background-color:rgba(0, 0, 0, 0.4);
+    z-index:999;
+    opacity:1;
+    pointer-events: all;
+}
+
+.iato-popup{
+    margin:auto;
+    padding:2rem;
+    background-color: #fefefe;
+    box-shadow: 1px 1px 5px 3px #666;
+    border-radius: 0.2rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.iato-popup-message {
+    font-size: 1.2rem;
+    margin: auto;
+    margin-bottom: 1rem;
+}
+
+.iato-popup-text {
+    font-size: 1rem;
+    margin: auto;
+    margin-bottom: 1rem;
+}
+.iato-popup-footer {
+    font-size: 1rem;
+    margin: auto;
+}
