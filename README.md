@@ -11,12 +11,15 @@ https://files-manywho-com.s3.amazonaws.com/e1dbcceb-070c-4ce6-95b0-ba282aaf4f48/
 
 ![alt text](https://github.com/MarkWattsBoomi/InactivityTimeout/blob/main/warning.png)
 
+![alt text](https://github.com/MarkWattsBoomi/InactivityTimeout/blob/main/logged.png)
+
 
 ## Functionality
 
 Running at a player level this component will begin counting down from the last user click.
 
-Once it reaches the timeout boundary it will display a configurable message for a configurable period then redirect the user to a nominated uri.
+Once it reaches the timeout boundary it will display a configurable message for a configurable period then 
+either redirect the user to a nominated uri if defined or show a 2nd popup declaring the session has expired.
 
 Any user activity during the session or during the warning period will reset the timer.
 
@@ -32,10 +35,12 @@ Add a global variable definition like this to your player in a script block
 ```
  var iato = {
             timeoutSeconds: 5,
-            warningSeconds: 60,
-            title: "Inactivity Warning",
-            message: "You will be logged out in {{#}} seconds",
-            footer: "Click anywhere to cancel",
+            warningSeconds: 5,
+            warningTitle: "Inactivity Warning",
+            warningMessage: "You will be logged out in {{#}} seconds",
+            warningFooter: "Click anywhere to cancel",
+            loggedOutTitle: "Session Expired",
+            loggedOutMessage: "Please close this window",
             redirectURI: "https://www.google.com"
         };
 ```
@@ -45,10 +50,12 @@ e.g.
 ```
      var iato = {
             timeoutSeconds: 5,
-            warningSeconds: 60,
-            title: "Inactivity Warning",
-            message: "You will be logged out in {{#}} seconds",
-            footer: "Click anywhere to cancel",
+            warningSeconds: 5,
+            warningTitle: "Inactivity Warning",
+            warningMessage: "You will be logged out in {{#}} seconds",
+            warningFooter: "Click anywhere to cancel",
+            loggedOutTitle: "Session Expired",
+            loggedOutMessage: "Please close this window",
             redirectURI: "https://www.google.com"
         };
         
@@ -75,14 +82,14 @@ Optional, default is 60.
 
 The number of user seconds to display the warning popup before redirecting the user to redirecURI.
 
-### title
+### warningTitle
 String.
 
 Optional, default is "User Inactivity Detected".
 
 The top line of text in the popup warning.
 
-### message
+### warningMessage
 String.
 
 Optional, default is "You will be logged out in {{#}} seconds".
@@ -91,12 +98,28 @@ The second line of text in the popup warning.
 
 "{{#}}" will be replaced with the number of warning seconds remaining.
 
-### footer
+### warningFooter
 String.
 
 Optional, default is "Click anywhere to cancel".
 
 The bottom line of text in the popup warning.
+
+### loggedOutTitle
+String.
+
+Optional, default is "Your Session Has Expired".
+
+The top line of text in the popup after logout.
+
+### loggedOutMessage
+String.
+
+Optional, default is "Please close this window".
+
+The second line of text in the popup warning.
+
+
 
 ### redirectURI
 String.
