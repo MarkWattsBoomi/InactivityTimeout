@@ -18,10 +18,13 @@ export default class InactivityTimeout {
     modal: any;
     msg: any;
 
-    title: string;
-    message: string;
-    footer: string;
+    warningTitle: string;
+    warningMessage: string;
+    warningFooter: string;
     debug: boolean;
+
+    loggedOutTitle: string;
+    loggedOutMessage: string;
 
     constructor() {
         this.moved=this.moved.bind(this);
@@ -39,9 +42,11 @@ export default class InactivityTimeout {
         if(iato){
             this.timeoutSeconds = iato.timeoutSeconds? parseInt("" + iato.timeoutSeconds) * 1000 : 5000;
             this.warningSeconds = iato.warningSeconds? parseInt("" + iato.warningSeconds) * 1000 : 60000;
-            this.title = iato.title ? iato.title : "User Inactivity Detected";
-            this.message = iato.message ? iato.message : "You will be logged out in {{#}} seconds";;
-            this.footer = iato.footer ? iato.footer : "Click anywhere to cancel";
+            this.warningTitle = iato.warningtitle ? iato.warningtitle : "User Inactivity Detected";
+            this.warningMessage = iato.warningmessage ? iato.warningmessage : "You will be logged out in {{#}} seconds";
+            this.warningFooter = iato.warningfooter ? iato.warningfooter : "Click anywhere to cancel";
+            this.loggedOutTitle = iato.loggedOutTitle ? iato.loggedOutTitle : "Your Session Has Expired";
+            this.loggedOutMessage = iato.loggedOutMessage ? iato.loggedOutMessage : "Please close this window";
             this.uri = iato.redirectURI ? iato.redirectURI : undefined;
             this.debug = iato.debug ? iato.debug : false;
         }
@@ -90,8 +95,14 @@ export default class InactivityTimeout {
                 this.timer = window.setTimeout(this.interval,this.warningIntervalSeconds);
             }
             else {
+                this.hidePopup();
+                window.removeEventListener("mousedown",this.activity);
+                document.getElementById("manywho")?.remove();
                 if(this.uri) {
                     window.open(this.uri,"_self");
+                }
+                else {
+                    this.showTerminated();
                 }
             } 
         }
@@ -109,18 +120,18 @@ export default class InactivityTimeout {
 
             let title: HTMLElement = document.createElement("span");
             title.className="iato-popup-message";
-            title.innerHTML=this.title;
+            title.innerHTML=this.warningTitle;
             msgBox.appendChild(title);
 
             let message: HTMLElement = document.createElement("span");
             message.className="iato-popup-text";
-            message.innerHTML=this.message.replace("{{#}}", ""+(counter / 1000));
+            message.innerHTML=this.warningMessage.replace("{{#}}", ""+(counter / 1000));
             this.msg = message;
             msgBox.appendChild(message);
 
             let footer: HTMLElement = document.createElement("span");
             footer.className="iato-popup-footer";
-            footer.innerHTML=this.footer;
+            footer.innerHTML=this.warningFooter;
             msgBox.appendChild(footer);
 
             redaction.appendChild(msgBox);
@@ -129,7 +140,7 @@ export default class InactivityTimeout {
             document.getElementsByTagName("body")[0].appendChild(redaction);
         }
         else {
-            this.msg.innerHTML=this.message.replace("{{#}}", ""+(counter / 1000));
+            this.msg.innerHTML=this.warningMessage.replace("{{#}}", ""+(counter / 1000));
         }
     }
 
@@ -140,7 +151,31 @@ export default class InactivityTimeout {
         }
     }
         
+    showTerminated() {
+        
+        let redaction: HTMLElement = document.createElement("div");
+        redaction.id="__modal";
+        redaction.className="iato-redaction";
+        
+        let msgBox : HTMLElement = document.createElement("div");
+        msgBox.className="iato-popup"
 
+        let title: HTMLElement = document.createElement("span");
+        title.className="iato-popup-message";
+        title.innerHTML=this.loggedOutTitle;
+        msgBox.appendChild(title);
+
+        let message: HTMLElement = document.createElement("span");
+        message.className="iato-popup-text";
+        message.innerHTML=this.loggedOutMessage;
+        this.msg = message;
+        msgBox.appendChild(message);
+
+        redaction.appendChild(msgBox);
+        this.modal = redaction;
+        
+        document.getElementsByTagName("body")[0].appendChild(redaction);
+    }
     
 }
 
