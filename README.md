@@ -7,6 +7,10 @@ https://files-manywho-com.s3.amazonaws.com/e1dbcceb-070c-4ce6-95b0-ba282aaf4f48/
 
 ```
 
+There's a simple demo here: -
+
+https://flow.manywho.com/270413cf-3d82-420b-8432-11bc064f50b4/play/Innactivity/?flow-id=e2afa675-3a51-41eb-ae36-8ba7955b892b
+
 # InactivityTimeout
 
 ![alt text](https://github.com/MarkWattsBoomi/InactivityTimeout/blob/main/warning.png)
