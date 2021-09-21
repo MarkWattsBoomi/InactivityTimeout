@@ -1,5 +1,5 @@
 
-import "./EventManager";
+//import "./EventManager";
 import "./InnactivityTimeout.css";
 
 declare const manywho: any;
@@ -30,9 +30,9 @@ export default class InactivityTimeout {
         this.showPopup=this.showPopup.bind(this);
         this.hidePopup=this.hidePopup.bind(this);
         this.warningClicked=this.warningClicked.bind(this);
-        (manywho as any).eventManager.addBeforeSendListener(this.moved, "iato");
-        (manywho as any).eventManager.addDoneListener(this.moved, "iato");
-        (manywho as any).eventManager.addJoinListener(this.moved, "iato");
+        //(manywho as any).eventManager.addBeforeSendListener(this.moved, "iato");
+        //(manywho as any).eventManager.addDoneListener(this.moved, "iato");
+        //(manywho as any).eventManager.addJoinListener(this.moved, "iato");
         window.addEventListener("mousedown",this.activity);
 
         // read config vars
